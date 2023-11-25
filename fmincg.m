@@ -45,7 +45,6 @@ function [X, fX, i] = fmincg(f, X, options, P1, P2, P3, P4, P5)
 % [ml-class] Changes Made:
 % 1) Function name and argument specifications
 % 2) Output display
-%
 
 % Read options
 if exist('options', 'var') && ~isempty(options) && isfield(options, 'MaxIter')
@@ -54,13 +53,12 @@ else
     length = 100;
 end
 
-
-RHO = 0.01;                            % a bunch of constants for line searches
+RHO = 0.01;      % a bunch of constants for line searches
 SIG = 0.5;       % RHO and SIG are the constants in the Wolfe-Powell conditions
-INT = 0.1;    % don't reevaluate within 0.1 of the limit of the current bracket
-EXT = 3.0;                    % extrapolate maximum 3 times the current bracket
-MAX = 20;                         % max 20 function evaluations per line search
-RATIO = 100;                                      % maximum allowed slope ratio
+INT = 0.1;       % don't reevaluate within 0.1 of the limit of the current bracket
+EXT = 3.0;       % extrapolate maximum 3 times the current bracket
+MAX = 20;        % max 20 function evaluations per line search
+RATIO = 100;     % maximum allowed slope ratio
 
 argstr = ['feval(f, X'];                      % compose string used to call function
 for i = 1:(nargin - 3)
@@ -146,7 +144,6 @@ while i < abs(length)                                      % while not finished
 
   if success                                         % if line search succeeded
     f1 = f2; fX = [fX' f1]';
-%     fprintf('%s %4i | Cost: %4.6e\r', S, i, f1);
     s = (df2'*df2-df1'*df2)/(df1'*df1)*s - df2;      % Polack-Ribiere direction
     tmp = df1; df1 = df2; df2 = tmp;                         % swap derivatives
     d2 = df1'*s;
